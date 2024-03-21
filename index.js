@@ -17,6 +17,16 @@ const ehPalindromo = (str) => {
     return strLimpa === strInvertida;
 };
 
+//CONST contarOcorrencias 
+
+const contarOcorrencias = (str) => {
+    const ocorrencias = {};
+    for (let char of str) {
+        ocorrencias[char] = ocorrencias[char] ? ocorrencias[char] + 1 : 1;
+    }
+    return ocorrencias;
+};
+
 // Método POST
 app.post('/api/manipulacao-string', (req, res) => {
     const texto = req.body.texto;
@@ -30,10 +40,11 @@ app.post('/api/manipulacao-string', (req, res) => {
         
         // Verificar se a string é um palíndromo
         const palindromo = ehPalindromo(texto);
-        
-        // Contar o número de ocorrências de cada caractere
 
-        res.status(200).json({ palindromo });
+        // Contar o número de ocorrências de cada caractere
+        const ocorrencias = contarOcorrencias(texto);
+
+        res.status(200).json({ palindromo, ocorrencias });
     } catch (error) {
         res.status(500).json({ error: 'Erro interno do servidor' });
     }
