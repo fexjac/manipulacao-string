@@ -9,10 +9,17 @@ const PORT = process.env.PORT || 3000;
 // Middleware para analisar requisições JSON
 app.use(bodyParser.json());
 
+// CONST ehPalindromo
+
+const ehPalindromo = (str) => {
+    const strLimpa = str.toLowerCase().replace(/[\W_]/g, '');
+    const strInvertida = strLimpa.split('').reverse().join('');
+    return strLimpa === strInvertida;
+};
+
 // Método POST
 app.post('/api/manipulacao-string', (req, res) => {
     const texto = req.body.texto;
-
 
     // Verificar se o corpo da requisição contém o campo 'texto'
     if (!texto) {
@@ -20,11 +27,13 @@ app.post('/api/manipulacao-string', (req, res) => {
     }
 
     try {
+        
         // Verificar se a string é um palíndromo
-
+        const palindromo = ehPalindromo(texto);
+        
         // Contar o número de ocorrências de cada caractere
 
-        res.status(200).json({ message: 'Requisição processada com sucesso' });
+        res.status(200).json({ palindromo });
     } catch (error) {
         res.status(500).json({ error: 'Erro interno do servidor' });
     }
