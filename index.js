@@ -44,7 +44,13 @@ app.post('/api/manipulacao-string', (req, res) => {
         // Contar o número de ocorrências de cada caractere
         const ocorrencias = contarOcorrencias(texto);
 
-        res.status(200).json({ palindromo, ocorrencias });
+        // Formatando retorno
+        const resultado = {
+            palindromo: ehPalindromo(texto),
+            ocorrencias_caracteres: contarOcorrencias(texto)
+        };
+
+        res.status(200).json(resultado);
     } catch (error) {
         res.status(500).json({ error: 'Erro interno do servidor' });
     }
