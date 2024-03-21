@@ -1,8 +1,17 @@
-const express = require('express')
-const app = express()
+// Importando as dependências gerais
+const express = require('express');
+const bodyParser = require('body-parser');
 
+// Inicializando o express
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+// Método GET básico
 app.get('/', function (req, res) {
-  res.send('API rodando no servidor')
+  res.send(`Servidor respondendo método GET na porta ${PORT}`)
 })
 
-app.listen(process.env.PORT || 3000)
+// Iniciando o servidor
+app.listen(PORT, () => {
+    console.log(`Servidor rodando na porta ${PORT}`);
+});
